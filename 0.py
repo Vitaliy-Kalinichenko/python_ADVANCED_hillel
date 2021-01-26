@@ -14,6 +14,7 @@ for i in data:
     else:
         result[i.pop('city')].append(i)
 
+
 pprint(result)
 
 from random import randint
