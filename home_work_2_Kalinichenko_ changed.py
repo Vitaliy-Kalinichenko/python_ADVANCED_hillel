@@ -1,6 +1,8 @@
 # 1) Сгенерировать dict() из списка ключей ниже по формуле (key : key* key).keys = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 # ожидаемый результат: {1: 1, 2: 4, 3: 9 …}
 keys = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+new_dict = {i: i * i for i in keys}
+# или
 d = {}
 for key in keys:
     d.setdefault(key, key ** 2)
@@ -11,7 +13,6 @@ d = {}
 for key in keys:
     d[key] = key ** 2
 print(d)
-
 # =======================================================
 ### Your solutions are correct, however, you may consider dictionary comprehension as well. Thus, it'll look like:
 ### new_dict = {i: i * i for i in keys}
@@ -25,7 +26,7 @@ from random import randint
 
 consonants = 'бвгджзйклмнпрстфхцчшщ'
 vowels = 'аоиеёэыуюя'
-s = input()
+s = input().lower()
 print(''.join([vowels[randint(0, 9)] if i in consonants else i for i in s ]))
 
 # =======================================================
@@ -44,6 +45,8 @@ for i in lis:
         b.append(i)
 # 4.2) вывести 3 наибольших числа из исходного массива
 lis = [10, 11, 2, 3, 5, 8, 23, 11, 2, 5, 76, 43, 2, 32, 76, 3, 10, 0, 1]
+sorted_list = sorted(lis, reverse=True)[:3]
+# или
 a = []
 while len(a) < 3:
     a.append(max(lis))
@@ -122,7 +125,7 @@ most_frequent(['a', 'a', 'bi', 'bi', 'bi']) == 'bi'
 def mult(n):
     pr = 1
     for i in str(n):
-        if int(i) != 0:
+        if int(i):
         # =======================================================
         ### if int(i):
         # =======================================================
@@ -133,7 +136,7 @@ print(mult(123405))
 n = 123405
 pr = 1
 while n > 0:
-    if n % 10 != 0:
+    if n % 10:
     # =======================================================
     ### if n % 10:
     # =======================================================
@@ -160,7 +163,7 @@ print(some_function([10, 11, 2, 3, 5, 8, 23], -7))
 
 # или
 def some_function(array, n):
-        return array[n] ** n if len(array) > n and len(array) >= abs(n) else -1
+        return array[n] ** n if len(array) > abs(n) or n == -len(array) else -1
 
 print(some_function([10, 11, 2, 3, 5, 8, 23], -7))
 # =======================================================
