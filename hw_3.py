@@ -5,7 +5,7 @@ from random import randint
 
 
 def game(sign):
-    signs = ['rock', 'scissors', 'paper']
+    signs = ('rock', 'scissors', 'paper')
     if sign in signs:
         sign_computer = signs[randint(0, 2)]
         print(sign_computer)
@@ -26,12 +26,13 @@ print(game(input('Enter rock, scissors or paper> ').lower()))
 # and the average person uses 57 sheets per day.
 import math
 
+days = 14
+sheets_in_roll = 500
+average_sheets = 57
+
 
 def count_tp(d):
     if isinstance(d, dict) and d.get("people") and d.get('tp'):
-        days = 14
-        sheets_in_roll = 500
-        average_sheets = 57
         required_tp = math.ceil(days * d.get('people') * average_sheets / sheets_in_roll)
         if d.get("tp") < required_tp:
             return f'You need to buy {required_tp - d.get("tp")} TP'
@@ -120,9 +121,10 @@ def tic_tac_toe(matrix):
     win_0 = ["O", "O", "O"]
     columns = list(zip(*matrix))
     main_diagonal = [matrix[i][j] for i in range(3) for j in range(3) if i == j]
-    if tuple(win_0) in columns or win_0 in matrix or win_0 == main_diagonal:
+    second_diagonal = [matrix[i][-i - 1] for i in range(3)]
+    if tuple(win_0) in columns or win_0 in matrix or win_0 == main_diagonal or win_0 == second_diagonal:
         return "O"
-    elif tuple(win_x) in columns or win_x in matrix or win_x == main_diagonal:
+    elif tuple(win_x) in columns or win_x in matrix or win_x == main_diagonal or win_x == second_diagonal:
         return "X"
     return "Draw"
 
@@ -148,4 +150,10 @@ print(tic_tac_toe([
     ["X", "X", "O"],
     ["O", "O", "X"],
     ["X", "X", "O"]
+]))
+
+print(tic_tac_toe([
+    ["X", "X", "O"],
+    ["O", "O", "X"],
+    ["O", "X", "O"]
 ]))
