@@ -2,3 +2,5 @@
 .idea
 .env_hw_hillel
 requirement.txt
+examples.py
+log.txt
