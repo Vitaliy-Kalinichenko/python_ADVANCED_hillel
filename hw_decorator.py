@@ -57,20 +57,22 @@ print(func1(10.0))
 
 def memoize(func):
     cache = {}
-    count_func_executed = 0
-    count_used_cache = 0
+
 
     @wraps(func)
     def wrapper(*args):
         if args in cache:
-            nonlocal count_used_cache
-            count_used_cache += 1
-            print(f'Used cache with counter = {count_used_cache}. Value = {cache[args]}')
+            # nonlocal count_used_cache
+            wrapper.count_used_cache += 1
+            print(f'Used cache with counter = {wrapper.count_used_cache}. Value = {cache[args]}')
         else:
-            nonlocal count_func_executed
+            # nonlocal count_func_executed
             cache[args] = func(*args)
-            count_func_executed += 1
-            print(f'Function executed with counter = {count_func_executed}, function result = {cache[args]}')
+            wrapper.count_func_executed += 1
+            print(f'Function executed with counter = {wrapper.count_func_executed}, function result = {cache[args]}')
+
+    wrapper.count_func_executed = 0
+    wrapper.count_used_cache = 0
 
     return wrapper
 
