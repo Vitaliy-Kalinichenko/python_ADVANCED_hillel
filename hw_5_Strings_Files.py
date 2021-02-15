@@ -47,6 +47,7 @@ def remove_words_in_file(file_name):
 
 remove_words_in_file('test.txt')
 
+
 # 2)Текстовый файл содержит записи о телефонах и их владельцах. Переписать в другой файл
 # телефоны тех владельцев, фамилии которых начинаются с букв К и С.
 
@@ -65,6 +66,7 @@ def get_phone_numbers(file_name):
 
 get_phone_numbers('phone_numbers.txt')
 
+
 # 3) Получить файл, в котором текст выровнен по правому краю путем равномерного добавления пробелов.
 
 def right_aligns_text_in_file(file_name):
@@ -79,6 +81,7 @@ def right_aligns_text_in_file(file_name):
 
 
 right_aligns_text_in_file('test.txt')
+
 
 # 4)Дан текстовый файл со статистикой посещения сайта за неделю. Каждая строка содержит ip адрес, время и название дня
 # недели (например, 139.18.150.126 23:12:44 sunday). Создайте новый текстовый файл, который бы содержал список ip без
@@ -106,9 +109,9 @@ def ip_without_repeating(file_name):
             new_file.write(
                 f"IP-{ip}, visits-{data['count']}, Pop day-{sorted(data['days'], key=lambda x: data['days'].count(x))[-1]}\n")
             # сортировка по количеству повторений, берем крайний элемент
-        new_file.write(f"Pop time-{sorted(pop_time, key=lambda x: int(x.split(':')[0]))[-1][:2]}")  # раздклили время по :
+        new_file.write(
+            f"Pop time-{sorted(pop_time, key=lambda x: int(x.split(':')[0]))[-1][:2]}")  # раздклили время по :
         # и отсортировали по часам
-
 
 
 ip_without_repeating('statistics')
