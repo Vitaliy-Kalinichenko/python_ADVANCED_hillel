@@ -18,6 +18,7 @@ class EmailDescriptor:
         self.__name = name
 
 
+
 class MyClass:
     email = EmailDescriptor()
 
@@ -94,6 +95,7 @@ assert data_row.number != new_data_row.number
 # Добавить к этой задаче дескриптор для аттрибута цена.
 # При назначении цены товара будет автоматически добавлен НДС 20%
 # При получении цены товара, цена возврщается уже с учетом НДС
+
 class PriceDescriptor:
     def __get__(self, instance, owner):
         return instance.__dict__[self.__name]
@@ -254,7 +256,8 @@ print('-' * 40)
 order1 = ShoppingBag()  # создаем заказ
 order1.add_goods_to_bag('T-shirt', 10)  # добавляем товар в корзину
 order1.add_goods_to_bag('Jeans', 5)  # добавляем товар в корзину
-# print(order1._bag)
+
+
 order1.get_composition_bag()  # 10) Распечатать элементы корзины покупок с ценой и общей суммой
 print('-' * 40)
 order1.place_order()  # 11) Оформить заказ и распечатать детали заказа по его номеру
