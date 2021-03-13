@@ -51,7 +51,7 @@ from os import path
 with open('example_json_1.json') as file:
     data_1 = json.load(file)
 
-with open('HW6_Class/example_json_2.json') as file:
+with open('example_json_2.json') as file:
     data_2 = json.load(file)
 
 
@@ -85,7 +85,7 @@ a = FileJson('example_json_1.json')
 print(a.read_file())
 a.write_to_file(data_1)
 print(a.read_file())
-b = FileJson('HW6_Class/example_json_2.json')
+b = FileJson('example_json_2.json')
 a.merging_file(b)
 print(a.relative_path())
 print(a.absolute_path())
