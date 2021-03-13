@@ -119,9 +119,6 @@ class MyWarehouse:
         self._category = category.lower()
         self._availability = availability
 
-    def __repr__(self):
-        return self._name
-
     # 2) Добавить товар на склад
     def add_item_to_warehouse(self):
         """This method adds an item to the warehouse"""
@@ -173,6 +170,7 @@ class MyWarehouse:
 
     @classmethod
     def _reduce_quantity_goods(cls, name, quantity):
+        """This method reduces the quantity of the item after ordering."""
         cls.warehouse[name.lower()]['_quantity'] -= quantity
 
 
@@ -186,28 +184,30 @@ class MyWarehouse:
 from datetime import date
 
 
-class ShoppingBag(MyWarehouse):
+class ShoppingBag:
     order_id = 0
 
     def __init__(self):
         self._bag = {}
+        ShoppingBag.order_id += 1
 
     # 9) Добавить товары в корзину (вы не можете добавлять товары, если их нет в наличии)
     def add_goods_to_bag(self, name, quantity):
-        availability = super()._get_availability_for_order(name)  # получаем наличие товара на складе
+        """This method adds items to the cart."""
+        availability = MyWarehouse._get_availability_for_order(name)  # получаем наличие товара на складе
         if availability >= quantity:  # если остаток товара больше заказа, доб в корзину
             self._bag[name] = quantity
         elif availability:
-            print(f'Only {availability} available')
+            print(f'Only {availability} available') # если товар в наличии, но не достаточно для заказа
         else:
-            print('Out of stock')
+            print('Out of stock') # если товара нет в наличии
 
     # 10) Распечатать элементы корзины покупок с ценой и общей суммой
     def get_composition_bag(self):
         """This method prints the composition of the shopping bag with price and total"""
         if self._bag:
             for name, quantity in self._bag.items():
-                price = super()._get_price_for_order(name)  # получаем цену на товар
+                price = MyWarehouse._get_price_for_order(name)  # получаем цену на товар из класса MyWarehouse
                 print(f'{name}, price - {price:.2f}, quantity - {quantity}, total amount - {price * quantity:.2f}')
         else:
             print('Shopping bag is empty')
@@ -215,19 +215,19 @@ class ShoppingBag(MyWarehouse):
     # 11) Оформить заказ и распечатать детали заказа по его номеру
     def place_order(self):
         if self._bag:
-            date_purchased = date.today()
-            print(f'Order - {ShoppingBag.order_id}, purchase date - {date_purchased}')
+            date_purchased = str(date.today())
+            print(f'Order № - {ShoppingBag.order_id}, purchase date - {date_purchased}')
             self.get_composition_bag()
-            data_order = {  # 12) Позиция заказа, созданная после оформления заказа пользователем.
+            data_order = {  # 12) Позиция заказа, созданная после оформления заказа пользователем. Я так понял что это
+                # данные для занисения в базу заказов
                 'order id': ShoppingBag.order_id,
                 'purchase date': date_purchased,
                 'composition bag': self._bag
             }
             for name, quantity in self._bag.items():  # 13) После оформления заказа количество товара уменьшается
                 # на количество товаров из заказа.
-                super()._reduce_quantity_goods(name, quantity)
+                MyWarehouse._reduce_quantity_goods(name, quantity)
             self._bag = {}  # обнуляем корзину
-            ShoppingBag.order_id += 1
         else:
             print('Shopping bag is empty')
 
@@ -242,15 +242,21 @@ print(MyWarehouse.warehouse)  # содержимое склада
 jeans = MyWarehouse('Jeans', 'M', 50, 700, 'clothes')  # новый экзем, новый товар
 jeans.add_item_to_warehouse()  # добовляем товр на склад
 # jeans.remove_item_from_warehouse()
+print('-' * 40)
 jeans.remainder_goods_by_name('jeans')  # Распечатать остаток товара по его имени
+print('-' * 40)
 jeans.remainder_goods()  # 5) Распечатать остаток всех товаров
+print('-' * 40)
 MyWarehouse.get_goods_from_category('clothes')  # 7) Распечатать список товаров с заданной категорией
+print('-' * 40)
+print('-' * 40)
 
 order1 = ShoppingBag()  # создаем заказ
 order1.add_goods_to_bag('T-shirt', 10)  # добавляем товар в корзину
 order1.add_goods_to_bag('Jeans', 5)  # добавляем товар в корзину
 # print(order1._bag)
 order1.get_composition_bag()  # 10) Распечатать элементы корзины покупок с ценой и общей суммой
+print('-' * 40)
 order1.place_order()  # 11) Оформить заказ и распечатать детали заказа по его номеру
-
+print('-' * 40)
 MyWarehouse.remainder_goods()  # 5) Распечатать остаток всех товаров
