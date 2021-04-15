@@ -1,0 +1,3 @@
+function removes a containing
+3 to 5 characters, an number of
+is removed line
