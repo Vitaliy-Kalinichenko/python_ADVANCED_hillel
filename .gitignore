@@ -4,3 +4,8 @@
 requirement.txt
 examples.py
 HW4_Decorators/log.txt
+__pycache__/
+venv/
+*.py[co]
+*~
+*.swp
